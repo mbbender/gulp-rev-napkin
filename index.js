@@ -98,7 +98,14 @@ function plugin(options){
 			if (!options.force && relativeFromCwd.substr(0,2) === '..') {
 				callback(new gPluginError('Delete outside of CWD NOT supported. To enable -> {force:true}: "' + file.revOrigPath + '"'));
 			} else {
-				rimraf(file.revOrigPath, rimrafHandler);
+				if(file.revOrigPath !== file.path){
+					rimraf(file.revOrigPath, rimrafHandler);	
+				}
+				
+				else{
+					callback();
+				}
+				
 			}
 		}
 
